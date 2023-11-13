@@ -15,9 +15,18 @@
             <button id="right">Right</button> 
             <button id="down">Down</button> 
         </div>
+        <div id="gameOverScreen" class="hidden">
+            <p>¡FELICIDADES!</p>
+            <button id="restartButton">¿Jugar de nuevo?</button>
+        </div>
+        <div id="gameLostScreen" class="hidden1">
+            <p>¡PERDISTE!</p>
+            <button id="restartButton1">¿Jugar de nuevo?</button>
+        </div>
         <div class="messages">
-            <!-- to do -->
-            <p>Parrafo de ejemplo</p>
+            <p>Vidas: <span id="lives"></span></p>
+            <p>Tu tiempo ⏰: <span id="timer"></span></p>
+            <p>Record 🏆: <span id="record"></span></p>
         </div>
     </div>
     <script src="./maps.js"></script>

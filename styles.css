@@ -51,10 +51,41 @@ button {
     border-style: solid;
 }
 
+.hidden {
+    display: none;
+}
+
+.hidden1 {
+    display: none;
+}
+
+#gameOverScreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #000;
+}
+
+#gameLostScreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #000;
+}
+
+
 p {
-    display: block;
-    margin: 0;
-    width: 100%;
+    display: inline-block;
+    margin: 15px;
+    font-size: 2rem;
 }
 
 @media(max-width: 440px){
