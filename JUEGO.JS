@@ -1,4 +1,6 @@
 console.log(maps);
+const lobby = document.querySelector(".lobby");
+const container = document.querySelector(".container");
 const canvas = document.querySelector("#game");
 const game = canvas.getContext('2d');
 const btnUp = document.querySelector('#up'); 
@@ -12,6 +14,7 @@ const gameOverScreen = document.getElementById('gameOverScreen');
 const restartButton = document.getElementById('restartButton'); 
 const gameLostScreen = document.getElementById('gameLostScreen');
 const restartButton1 = document.getElementById('restartButton1');
+const startButton = document.getElementById('startButton');
 
 let canvasSize;
 let elementsSize;
@@ -23,6 +26,15 @@ let timePlayer;
 let timeInterval;
 let formattedRecordTime;
 let playerTime;
+let timerStarted = false;
+
+startButton.addEventListener("click", function() {
+    lobby.classList.add("hidden");
+    container.classList.remove("hidden");
+    timeStart = Date.now(); // Inicia el temporizador al hacer clic en el botón
+    timerStarted = true; // Marca que el temporizador ha comenzado
+    startGame();
+});
 
 const playerPosition = {
     x: undefined,
@@ -60,6 +72,7 @@ function setCanvasSize() {
 
 function startGame() {
     
+    
     game.textAlign = 'center';
     
     game.font = elementsSize + 'px Verdana';
@@ -75,7 +88,7 @@ function startGame() {
        timeInterval = setInterval(showTime, 100);
        showRecord(); 
     }
-
+    
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
 
@@ -88,15 +101,15 @@ function startGame() {
             const posY = elementsSize * (rowI + 1);
 
 
-            if (col == 'O') {
+            if (col === 'O') {
                 if(!playerPosition.x && !playerPosition.y){
                     playerPosition.x = posX;
                     playerPosition.y = posY;
                 }
-            } else if (col == 'I') {
+            } else if (col === 'I') {
                 giftPosition.x = posX;
                 giftPosition.y = posY;
-            } else if (col == 'X') {
+            } else if (col === 'X') {
                 enemyposition.push({
                     x: posX,
                     y: posY,
@@ -195,19 +208,20 @@ function gameWin() {
     gameOverScreen.classList.remove('hidden');
 }
 
-function restartGame(){
-    console.log('restarting game');
-    level = 0;
+function restartGame() {
     lives = 3;
+    level = 0;
     timeStart = undefined;
-    clearInterval(timeInterval);
-
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
+    
     gameOverScreen.classList.add('hidden');
     gameLostScreen.classList.add('hidden1');
-    
+    container.classList.remove("hidden");
     startGame();
-}
 
+    lobby.classList.add('hidden');
+}
 restartButton.addEventListener('click', restartGame);
 restartButton1.addEventListener('click', restartGame);
 
@@ -217,6 +231,10 @@ function showLives() {
   }
 
 function showTime() {
+
+    if (!timerStarted || !timeStart) {
+        return;
+    }
 
     const elapsedTime = Date.now() - timeStart;
 
